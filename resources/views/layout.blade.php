@@ -22,6 +22,11 @@
         html {
             overflow-x: hidden;
         }
+
+        .activeNav {
+            color: #111e3b !important;
+            font-weight: 700;
+        }
     </style>
     @yield('head')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -34,7 +39,32 @@
     @elseif(session('user'))
         @include('include.nav_user')
     @endif
-    <section class="flex flex-col justify-center items-center w-screen py-20">
+
+    @if (session()->has('error'))
+        <script>
+            Swal.fire({
+                heightAuto: false,
+                icon: 'error',
+                title: 'Error',
+                text: '{{ session('error') }}',
+                confirmButtonColor: "#3085d6",
+            })
+        </script>
+    @endif
+
+    @if (session()->has('success'))
+        <script>
+            Swal.fire({
+                heightAuto: false,
+                icon: 'success',
+                title: 'Success',
+                text: '{{ session('success') }}',
+                confirmButtonColor: "#3085d6",
+            })
+        </script>
+    @endif
+
+    <section class="bg-neutral-100 flex flex-col justify-center items-center w-screen">
         @yield('content')
     </section>
 

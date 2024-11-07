@@ -1,6 +1,6 @@
 <!-- Main navigation container -->
 <nav
-    class="flex-no-wrap relative flex w-full items-center justify-between bg-zinc-50 py-2 shadow-dark-mild lg:flex-wrap lg:justify-start lg:py-4">
+    class="fixed top-0 flex w-full flex-wrap items-center justify-between bg-zinc-50 py-2 shadow-dark-mild lg:py-4">
     <div class="flex w-full flex-wrap items-center justify-between px-3">
         <!-- Hamburger button for mobile view -->
         <button
@@ -30,17 +30,17 @@
             <ul class="list-style-none me-auto flex flex-col ps-0 lg:flex-row" data-twe-navbar-nav-ref>
                 <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
                     <!-- Dashboard link -->
-                    <a class="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none lg:px-2"
-                        href="#" data-twe-nav-link-ref>Home</a>
+                    <a class="homeNav text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none lg:px-2"
+                        href="{{ route('admin.home') }}" data-twe-nav-link-ref>Home</a>
                 </li>
                 <!-- Team link -->
                 <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
-                    <a class="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none lg:px-2"
+                    <a class="booksNav text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none lg:px-2"
                         href="#" data-twe-nav-link-ref>Manage Books</a>
                 </li>
                 <!-- Projects link -->
                 <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
-                    <a class="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none lg:px-2"
+                    <a class="usersNav text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none lg:px-2"
                         href="#" data-twe-nav-link-ref>Manage Users</a>
                 </li>
             </ul>
