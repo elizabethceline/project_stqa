@@ -128,4 +128,11 @@ class BookController extends Controller
 
         return redirect()->route('admin.books')->with('success', 'Book updated successfully');
     }
+
+    public function delete($id)
+    {
+        $book = Book::find($id);
+        $book->delete();
+        return redirect()->route('admin.books')->with('success', 'Book deleted successfully');
+    }
 }

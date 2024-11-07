@@ -36,4 +36,5 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
 
     Route::get('/books/edit/{id}', [BookController::class, 'edit'])->name('books.edit');
     Route::put('/books/edit/{id}', [BookController::class, 'update'])->name('books.update');
+    Route::delete('/books/delete/{id}', [BookController::class, 'delete'])->name('books.delete');
 });

@@ -66,13 +66,16 @@
                                 </button>
                             </a>
 
-                            <a href="">
-                                <button type="button"
+                            <form onsubmit="return confirm('Apakah Anda Yakin ?');"
+                                action="{{ route('admin.books.delete', ['id' => $book->id]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
                                     class="text-sm text-white font-medium inline-block rounded bg-danger px-6 pb-2.5 pt-2.5 uppercase leading-normal text-white shadow-danger-3 transition duration-150 ease-in-out hover:bg-danger-accent-300 hover:shadow-danger-2 focus:bg-danger-accent-300 focus:shadow-danger-2 focus:outline-none focus:ring-0 active:bg-danger-600 active:shadow-danger-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                                     data-twe-ripple-init data-twe-ripple-color="light">
                                     Delete
                                 </button>
-                            </a>
+                            </form>
                         </div>
 
                     </div>
