@@ -33,4 +33,7 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
 
     Route::get('/books/add', [BookController::class, 'add'])->name('books.add');
     Route::post('/books/add', [BookController::class, 'create'])->name('books.create');
+
+    Route::get('/books/edit/{id}', [BookController::class, 'edit'])->name('books.edit');
+    Route::put('/books/edit/{id}', [BookController::class, 'update'])->name('books.update');
 });

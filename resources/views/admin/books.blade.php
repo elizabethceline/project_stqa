@@ -58,7 +58,7 @@
                                 class="mb-4 text-sm px-2 py-2.5 bg-green-800 text-white font-bold rounded tracking-wider w-fit">
                                 Books left: {{ $book->count }}
                             </p>
-                            <a href="">
+                            <a href="{{ route('admin.books.edit', ['id' => $book->id]) }}">
                                 <button type="button"
                                     class="text-sm text-white font-medium inline-block rounded bg-warning px-6 pb-2.5 pt-2.5 uppercase leading-normal text-white shadow-warning-3 transition duration-150 ease-in-out hover:bg-warning-accent-300 hover:shadow-warning-2 focus:bg-warning-accent-300 focus:shadow-warning-2 focus:outline-none focus:ring-0 active:bg-warning-600 active:shadow-warning-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                                     data-twe-ripple-init data-twe-ripple-color="light">
