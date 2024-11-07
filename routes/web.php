@@ -27,7 +27,7 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::post('login', [AuthController::class, 'loginAdmin'])->name('login.validate')->withoutMiddleware('admin');
 
     Route::get('/home', [AdminController::class, 'index'])->name('home');
-    Route::post('/home', [BookController::class, 'search'])->name('search.books');
+    Route::post('/home', [BookController::class, 'index'])->name('search.books');
     Route::get('/books', [BookController::class, 'index'])->name('books');
-    Route::post('/books', [BookController::class, 'search'])->name('search.books');
+    Route::post('/books', [BookController::class, 'index'])->name('search.books');
 });

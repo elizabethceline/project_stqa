@@ -7,15 +7,7 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    public function index()
-    {
-        $books = Book::all();
-        return view('admin.books', [
-            'books' => $books
-        ]);
-    }
-
-    public function search(Request $request)
+    public function index(Request $request)
     {
         $search = $request->search_book;
         $books = Book::where('name', 'like', '%' . $search . '%')->get();
