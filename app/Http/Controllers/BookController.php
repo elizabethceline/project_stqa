@@ -10,7 +10,7 @@ class BookController extends Controller
     public function index(Request $request)
     {
         $search = $request->search_book;
-        $books = Book::where('name', 'like', '%' . $search . '%')->get();
+        $books = Book::where('name', 'like', '%' . $search . '%')->where('availability', 1)->get();
         if ($books->isEmpty()) {
             return redirect()->route('admin.books')->with('error', 'No book found');
         }
