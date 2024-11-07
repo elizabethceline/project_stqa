@@ -50,7 +50,7 @@
         <!-- Right elements -->
         <div class="relative flex items-center">
                 <a class="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none lg:px-2"
-                    href="#" data-twe-nav-link-ref>Sign Out</a>
+                    href="{{ route('logout') }}" data-twe-nav-link-ref>Sign Out</a>
         </div>
         <!-- Right elements -->
     </div>

@@ -51,4 +51,11 @@ class AuthController extends Controller
             return back()->with('error', 'Password Salah');
         }
     }
+
+    public function logout()
+    {
+        session()->invalidate();
+        session()->regenerateToken();
+        return redirect()->route('admin.login');
+    }
 }

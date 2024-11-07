@@ -19,6 +19,8 @@ Route::get('/', function () {
     return view('layout');
 });
 
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
 Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::get('login', [AuthController::class, 'indexAdmin'])->name('login')->withoutMiddleware('admin');
     Route::post('login', [AuthController::class, 'loginAdmin'])->name('login.validate')->withoutMiddleware('admin');
