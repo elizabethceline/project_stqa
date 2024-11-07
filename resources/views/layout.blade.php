@@ -45,7 +45,7 @@
             Swal.fire({
                 heightAuto: false,
                 icon: 'error',
-                title: 'Error',
+                title: 'Oops...',
                 text: '{{ session('error') }}',
                 confirmButtonColor: "#3085d6",
             })

@@ -6,9 +6,11 @@
         <form action="{{ route('admin.search.books') }}" method="POST" class="w-full my-8">
             @csrf
             <div class="relative mb-2 w-full" data-twe-input-wrapper-init>
+                {{-- //if search empty --}}
                 <input type="text"
                     class="bg-white peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0"
-                    id="search_book" name="search_book" placeholder="Search for books..." value="{{ $search }}" />
+                    id="search_book" name="search_book" placeholder="Search for books..."
+                    value="{{ isset($search) ? $search : '' }}" />
                 <label for="search_book"
                     class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[twe-input-state-active]:-translate-y-[0.9rem] peer-data-[twe-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-400 dark:peer-focus:text-primary">
                     Search for books...
