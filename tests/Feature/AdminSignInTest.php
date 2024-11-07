@@ -17,8 +17,8 @@ class AdminSignInTest extends TestCase
 
         // Create a test admin user
         Admin::create([
-            'email' => 'admin@example.com',
-            'password' => Hash::make('password123'),
+            'email' => 'admin@admin.com',
+            'password' => Hash::make('password'),
         ]);
     }
 
@@ -26,8 +26,8 @@ class AdminSignInTest extends TestCase
     public function it_allows_admin_to_login_with_correct_credentials()
     {
         $response = $this->post(route('admin.login.validate'), [
-            'email' => 'admin@example.com',
-            'password' => 'password123',
+            'email' => 'admin@admin.com',
+            'password' => 'password',
         ]);
 
         $response->assertRedirect(route('admin.home'));
@@ -39,7 +39,7 @@ class AdminSignInTest extends TestCase
     public function it_prevents_login_with_incorrect_password()
     {
         $response = $this->post(route('admin.login.validate'), [
-            'email' => 'admin@example.com',
+            'email' => 'admin@admin.com',
             'password' => 'wrongpassword',
         ]);
 
@@ -52,7 +52,7 @@ class AdminSignInTest extends TestCase
     public function it_requires_email()
     {
         $response = $this->post(route('admin.login.validate'), [
-            'password' => 'password123',
+            'password' => 'password',
         ]);
 
         $response->assertRedirect();
@@ -64,7 +64,7 @@ class AdminSignInTest extends TestCase
     public function it_requires_password()
     {
         $response = $this->post(route('admin.login.validate'), [
-            'email' => 'admin@example.com',
+            'email' => 'admin@admin.com',
         ]);
 
         $response->assertRedirect();
@@ -77,7 +77,7 @@ class AdminSignInTest extends TestCase
     {
         $response = $this->post(route('admin.login.validate'), [
             'email' => 'nonexistent@example.com',
-            'password' => 'password123',
+            'password' => 'password',
         ]);
 
         $response->assertRedirect();
