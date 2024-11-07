@@ -3,7 +3,7 @@
 @section('content')
     <section class="w-9/12 h-screen flex flex-col justify-center items-center">
         <h1 class="font-bold text-3xl text-center">Welcome, {{ session('admin') }}</h1>
-        <form action="{{ route('admin.search.books') }}" method="POST"
+        <form action="{{ route('admin.books.search') }}" method="POST"
             class="w-[600px] p-8 flex flex-col justify-center bg-white rounded-md shadow-md mt-8 ">
             @csrf
             <div class="relative mb-2 w-full" data-twe-input-wrapper-init>

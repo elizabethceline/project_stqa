@@ -3,7 +3,12 @@
 @section('content')
     <section class="w-9/12 min-h-screen flex flex-col items-center py-24">
         <h1 class="font-bold text-3xl text-center">Books</h1>
-        <form action="{{ route('admin.search.books') }}" method="POST" class="w-full my-8">
+        <button type="button" onclick="window.location.href='{{ route('admin.books.add') }}'"
+            class="fixed bottom-8 right-8 inline-block rounded-full bg-success px-6 pb-2 pt-2.5 text-base font-bold uppercase leading-normal text-white shadow-success-3 transition duration-150 ease-in-out hover:bg-success-accent-300 hover:shadow-success-2 focus:bg-success-accent-300 focus:shadow-success-2 focus:outline-none focus:ring-0 active:bg-success-600 active:shadow-success-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
+            Add New Book
+        </button>
+
+        <form action="{{ route('admin.books.search') }}" method="POST" class="w-full my-8">
             @csrf
             <div class="relative mb-2 w-full" data-twe-input-wrapper-init>
                 {{-- //if search empty --}}
@@ -26,14 +31,22 @@
                 <p class="text-lg">No books found.</p>
             </div>
         @else
-            <div class="grid grod-cols-1 sm:grid-cols-3 gap-4 mt-4 w-full">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4 w-full">
                 @foreach ($books as $book)
                     <div
                         class="block rounded-lg bg-white p-6 text-surface shadow-secondary-1 w-full flex flex-col justify-between">
                         <div>
                             <h5 class="text-xl font-medium leading-tight">{{ $book->name }}</h5>
                             <p class="mb-4 text-base">
-                                {{ $book->author }}
+                                {{ $book->author }} | @if ($book->availability == 1)
+                                    <span class="text-green-700">
+                                        Available
+                                    </span>
+                                @else
+                                    <span class="text-red-700">
+                                        Not Available
+                                    </span>
+                                @endif
                             </p>
                             <p class="mb-4 text-base">
                                 {{ $book->desc }}
