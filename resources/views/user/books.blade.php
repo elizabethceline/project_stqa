@@ -84,7 +84,7 @@
 @section('script')
     <script>
         document.querySelector('.booksNav').classList.add('activeNav');
-        document.querySelector('.usersNav').classList.remove('activeNav');
+        document.querySelector('.profileNav').classList.remove('activeNav');
         document.querySelector('.homeNav').classList.remove('activeNav');
     </script>
 @endsection

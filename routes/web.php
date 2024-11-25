@@ -51,4 +51,7 @@ Route::prefix('user')->name('user.')->middleware('user')->group(function () {
     Route::get('/books', [BookController::class, 'index'])->name('books');
     Route::post('/books', [BookController::class, 'index'])->name('books.search');
     Route::post('/books/reserve/{id}', [BookController::class, 'reserve'])->name('books.reserve');
+
+    Route::get('profile', [CustomerController::class, 'showProfile'])->name('profile');
+    Route::put('profile', [CustomerController::class, 'update'])->name('profile.update');
 });

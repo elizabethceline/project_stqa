@@ -31,17 +31,17 @@
                 <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
                     <!-- Dashboard link -->
                     <a class="homeNav text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none lg:px-2"
-                        href="" data-twe-nav-link-ref>Home</a>
+                        href="{{ route('user.home') }}" data-twe-nav-link-ref>Home</a>
                 </li>
                 <!-- Team link -->
                 <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
                     <a class="booksNav text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none lg:px-2"
-                        href="" data-twe-nav-link-ref>Books</a>
+                        href="{{ route('user.books') }}" data-twe-nav-link-ref>Books</a>
                 </li>
                 <!-- Projects link -->
                 <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
                     <a class="profileNav text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none lg:px-2"
-                        href="" data-twe-nav-link-ref>Profile</a>
+                        href="{{ route('user.profile') }}" data-twe-nav-link-ref>Profile</a>
                 </li>
             </ul>
             <!-- Left links -->
