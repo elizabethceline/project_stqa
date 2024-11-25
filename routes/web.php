@@ -21,11 +21,10 @@ Route::get('/', function () {
     return view('layout');
 });
 
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-
 Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::get('login', [AuthController::class, 'indexAdmin'])->name('login')->withoutMiddleware('admin');
     Route::post('login', [AuthController::class, 'loginAdmin'])->name('login.validate')->withoutMiddleware('admin');
+    Route::get('logout', [AuthController::class, 'logoutAdmin'])->name('logout');
 
     Route::get('/home', [AdminController::class, 'index'])->name('home');
     Route::post('/home', [BookController::class, 'index'])->name('books.search');
@@ -41,4 +40,15 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
 
     Route::get('/users', [CustomerController::class, 'showCustomers'])->name('users');
     Route::delete('/users/delete/{id}', [CustomerController::class, 'delete'])->name('users.delete');
+});
+
+Route::prefix('user')->name('user.')->middleware('user')->group(function () {
+    Route::get('login', [AuthController::class, 'indexUser'])->name('login')->withoutMiddleware('user');
+    Route::post('login', [AuthController::class, 'loginUser'])->name('login.validate')->withoutMiddleware('user');
+    Route::get('logout', [AuthController::class, 'logoutUser'])->name('logout');
+
+    Route::get('/home', [CustomerController::class, 'index'])->name('home');
+    Route::get('/books', [BookController::class, 'index'])->name('books');
+    Route::post('/books', [BookController::class, 'index'])->name('books.search');
+    Route::post('/books/reserve/{id}', [BookController::class, 'reserve'])->name('books.reserve');
 });

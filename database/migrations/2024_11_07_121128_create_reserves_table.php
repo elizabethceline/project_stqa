@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reserves', function (Blueprint $table) {
-            $table->uuid('id')->primary();
             $table->uuid('customer_id');
             $table->uuid('book_id');
 

@@ -7,6 +7,15 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+    public function index()
+    {
+        $name = Customer::where('id', session('customer'))->first()->name;
+        return view('user.home', [
+            'title' => 'User Page',
+            'name' => $name
+        ]);
+    }
+
     public function showCustomers()
     {
         $customers = Customer::with('books')->get();

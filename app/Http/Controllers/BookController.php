@@ -11,14 +11,27 @@ class BookController extends Controller
     public function index(Request $request)
     {
         $search = $request->search_book;
-        $books = Book::where('name', 'like', '%' . $search . '%')->get();
-        if ($books->isEmpty()) {
-            return redirect()->route('admin.books')->with('error', 'No book found');
+        $books = Book::where('name', 'like', '%' . $search . '%')->with('customers')->get();
+
+        if (session()->has('admin')) {
+            if ($books->isEmpty()) {
+                return redirect()->route('admin.books')->with('error', 'No book found');
+            }
+
+            return view('admin.books', [
+                'search' => $search,
+                'books' => $books
+            ]);
+        } else if (session()->has('customer')) {
+            if ($books->isEmpty()) {
+                return redirect()->route('user.books')->with('error', 'No book found');
+            }
+
+            return view('user.books', [
+                'search' => $search,
+                'books' => $books
+            ]);
         }
-        return view('admin.books', [
-            'search' => $search,
-            'books' => $books
-        ]);
     }
 
     public function add()
@@ -134,5 +147,21 @@ class BookController extends Controller
         $book = Book::find($id);
         $book->delete();
         return redirect()->route('admin.books')->with('success', 'Book deleted successfully');
+    }
+
+    public function reserve($id)
+    {
+        $book = Book::find($id);
+
+        if ($book->count == 0 || $book->availability == 0) {
+            return redirect()->route('user.books')->with('error', 'Book is not available');
+        }
+
+        $book->count -= 1;
+        $book->save();
+
+        $book->customers()->attach(session()->get('customer'));
+
+        return redirect()->route('user.books')->with('success', 'Book reserved successfully');
     }
 }

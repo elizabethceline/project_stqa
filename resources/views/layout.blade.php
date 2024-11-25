@@ -87,7 +87,7 @@
 <body>
     @if (session('admin'))
         @include('include.nav_admin')
-    @elseif(session('user'))
+    @elseif(session('customer'))
         @include('include.nav_user')
     @endif
 

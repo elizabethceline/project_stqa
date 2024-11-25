@@ -1,6 +1,6 @@
 <!-- Main navigation container -->
 <nav
-    class="fixed top-0 flex z-10 w-full flex-wrap items-center justify-between bg-zinc-50 py-2 shadow-dark-mild lg:py-4">
+    class="fixed top-0 z-10 flex w-full flex-wrap items-center justify-between bg-zinc-50 py-2 shadow-dark-mild lg:py-4">
     <div class="flex w-full flex-wrap items-center justify-between px-3">
         <!-- Hamburger button for mobile view -->
         <button
@@ -30,18 +30,18 @@
             <ul class="list-style-none me-auto flex flex-col ps-0 lg:flex-row" data-twe-navbar-nav-ref>
                 <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
                     <!-- Dashboard link -->
-                    <a class="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none lg:px-2"
-                        href="#" data-twe-nav-link-ref>Home</a>
+                    <a class="homeNav text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none lg:px-2"
+                        href="" data-twe-nav-link-ref>Home</a>
                 </li>
                 <!-- Team link -->
                 <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
-                    <a class="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none lg:px-2"
-                        href="#" data-twe-nav-link-ref>Books</a>
+                    <a class="booksNav text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none lg:px-2"
+                        href="" data-twe-nav-link-ref>Books</a>
                 </li>
                 <!-- Projects link -->
                 <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
-                    <a class="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none lg:px-2"
-                        href="#" data-twe-nav-link-ref>Profile</a>
+                    <a class="profileNav text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none lg:px-2"
+                        href="" data-twe-nav-link-ref>Profile</a>
                 </li>
             </ul>
             <!-- Left links -->
@@ -49,8 +49,8 @@
 
         <!-- Right elements -->
         <div class="relative flex items-center">
-            <a class="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none lg:px-2"
-                href="#" data-twe-nav-link-ref>Sign Out</a>
+                <a class="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none lg:px-2"
+                    href="{{ route('user.logout') }}" data-twe-nav-link-ref>Sign Out</a>
         </div>
         <!-- Right elements -->
     </div>

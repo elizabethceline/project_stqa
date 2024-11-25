@@ -23,6 +23,6 @@ class Book extends Model
 
     public function customers()
     {
-        return $this->belongsToMany(Customer::class, 'reserves', 'book_id', 'customer_id');
+        return $this->belongsToMany(Customer::class, 'reserves', 'book_id', 'customer_id')->withPivot('created_at', 'updated_at');
     }
 }
