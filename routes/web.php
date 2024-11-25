@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,4 +38,7 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::get('/books/edit/{id}', [BookController::class, 'edit'])->name('books.edit');
     Route::put('/books/edit/{id}', [BookController::class, 'update'])->name('books.update');
     Route::delete('/books/delete/{id}', [BookController::class, 'delete'])->name('books.delete');
+
+    Route::get('/users', [CustomerController::class, 'showCustomers'])->name('users');
+    Route::delete('/users/delete/{id}', [CustomerController::class, 'delete'])->name('users.delete');
 });

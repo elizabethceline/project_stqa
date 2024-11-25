@@ -41,7 +41,7 @@
                 <!-- Projects link -->
                 <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
                     <a class="usersNav text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none lg:px-2"
-                        href="#" data-twe-nav-link-ref>Manage Users</a>
+                        href="{{ route('admin.users') }}" data-twe-nav-link-ref>Manage Users</a>
                 </li>
             </ul>
             <!-- Left links -->
