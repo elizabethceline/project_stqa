@@ -162,6 +162,18 @@ class BookController extends Controller
 
         $book->customers()->attach(session()->get('customer'));
 
-        return redirect()->route('user.books')->with('success', 'Book reserved successfully');
+        return redirect()->route('user.reserves')->with('success', 'Book reserved successfully');
+    }
+
+    public function return($id)
+    {
+        $book = Book::find($id);
+
+        $book->count += 1;
+        $book->save();
+
+        $book->customers()->detach(session()->get('customer'));
+
+        return redirect()->route('user.books')->with('success', 'Book returned successfully');
     }
 }

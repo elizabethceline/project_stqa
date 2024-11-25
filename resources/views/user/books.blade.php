@@ -86,5 +86,6 @@
         document.querySelector('.booksNav').classList.add('activeNav');
         document.querySelector('.profileNav').classList.remove('activeNav');
         document.querySelector('.homeNav').classList.remove('activeNav');
+        document.querySelector('.reservesNav').classList.remove('activeNav');
     </script>
 @endsection

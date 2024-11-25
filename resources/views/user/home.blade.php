@@ -28,5 +28,6 @@
         document.querySelector('.booksNav').classList.remove('activeNav');
         document.querySelector('.profileNav').classList.remove('activeNav');
         document.querySelector('.homeNav').classList.add('activeNav');
+        document.querySelector('.reservesNav').classList.remove('activeNav');
     </script>
 @endsection

@@ -38,6 +38,10 @@
                     <a class="booksNav text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none lg:px-2"
                         href="{{ route('user.books') }}" data-twe-nav-link-ref>Books</a>
                 </li>
+                <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
+                    <a class="reservesNav text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none lg:px-2"
+                        href="{{ route('user.reserves') }}" data-twe-nav-link-ref>Reserves</a>
+                </li>
                 <!-- Projects link -->
                 <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
                     <a class="profileNav text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none lg:px-2"
