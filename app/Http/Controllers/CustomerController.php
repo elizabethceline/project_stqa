@@ -37,6 +37,44 @@ class CustomerController extends Controller
         return view('user.profile', compact('customer'));
     }
 
+    public function create(Request $request)
+    {
+        $validator = [
+            'name' => 'required|string',
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+            'bio' => 'string',
+        ];
+
+        $messages = [
+            'required' => ':attribute harus diisi',
+            'string' => ':attribute harus berupa string',
+            'email' => ':attribute harus berupa email',
+        ];
+
+        $attributes = [
+            'name' => 'Name',
+            'email' => 'E-mail',
+            'password' => 'Password',
+            'bio' => 'Bio',
+        ];
+
+        $valid = Validator::make($request->only(['name', 'email', 'password', 'bio']), $validator, $messages, $attributes);
+
+        if ($valid->fails()) {
+            return back()->with('error', $valid->errors()->first());
+        }
+
+        $customer = new Customer();
+        $customer->name = $request->name;
+        $customer->email = $request->email;
+        $customer->password = bcrypt($request->password);
+        $customer->bio = $request->bio;
+        $customer->save();
+
+        return redirect()->route('user.login')->with('success', 'Account created successfully');
+    }
+
     public function update(Request $request)
     {
         $validator = [
@@ -58,7 +96,7 @@ class CustomerController extends Controller
             'bio' => 'Bio',
         ];
 
-        $valid = Validator::make($request->only(['name','email', 'password', 'bio']), $validator, $messages, $attributes);
+        $valid = Validator::make($request->only(['name', 'email', 'password', 'bio']), $validator, $messages, $attributes);
 
         if ($valid->fails()) {
             return back()->with('error', $valid->errors()->first());

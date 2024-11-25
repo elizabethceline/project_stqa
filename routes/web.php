@@ -47,6 +47,11 @@ Route::prefix('user')->name('user.')->middleware('user')->group(function () {
     Route::post('login', [AuthController::class, 'loginUser'])->name('login.validate')->withoutMiddleware('user');
     Route::get('logout', [AuthController::class, 'logoutUser'])->name('logout');
 
+    Route::get('signup', function () {
+        return view('user.signup');
+    })->name('signup')->withoutMiddleware('user');
+    Route::post('signup', [CustomerController::class, 'create'])->name('signup.validate')->withoutMiddleware('user');
+
     Route::get('/home', [CustomerController::class, 'index'])->name('home');
     Route::get('/books', [BookController::class, 'index'])->name('books');
     Route::post('/books', [BookController::class, 'index'])->name('books.search');

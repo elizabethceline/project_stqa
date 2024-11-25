@@ -4,7 +4,7 @@
     <section class="w-9/12 h-screen flex flex-col justify-center items-center">
         <h1 class="font-bold text-5xl mb-8">LOGIN</h1>
         <form action="{{ route('user.login.validate') }}" method="POST"
-            class="w-[600px] p-8 flex flex-col justify-center items-center bg-white rounded-md shadow-md">
+            class="w-full sm:w-[600px] p-8 flex flex-col justify-center items-center bg-white rounded-md shadow-md">
             @csrf
             <div class="relative mb-5 w-full" data-twe-input-wrapper-init>
                 <input type="email"
@@ -24,7 +24,8 @@
             </div>
             <button type="submit"
                 class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
-                Enter </button>
+                LOGIN </button>
+            <p class="text-sm mt-5">Don't have an account? <a href="{{ route('user.signup') }}" class="text-primary underline">Sign up</a> first!</p>
         </form>
     </section>
 @endsection
