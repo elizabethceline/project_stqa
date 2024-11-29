@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
-class AdminSignInTest extends TestCase
+class AdminAuthTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -22,6 +22,16 @@ class AdminSignInTest extends TestCase
                 'password' => Hash::make('password'),
             ]);
         }
+    }
+
+    /** @test */
+    public function it_returns_the_admin_login_view()
+    {
+        $response = $this->get(route('admin.login'));
+
+        $response->assertStatus(200);
+        $response->assertViewIs('admin.login');
+        $response->assertViewHas('title', 'Login Page');
     }
 
     /** @test */
@@ -84,5 +94,17 @@ class AdminSignInTest extends TestCase
 
         $response->assertRedirect();
         $response->assertSessionHas('error', 'E-mail tidak ditemukan'); // Check for non-existent email error
+    }
+
+    /** @test */
+    public function it_logs_out_the_admin_and_redirects_to_login_page()
+    {
+        session(['admin' => 1]);
+        $this->assertTrue(session()->has('admin'));
+        $response = $this->get(route('admin.logout'));
+        session()->flush();
+        $this->assertFalse(session()->has('admin'));
+        $this->assertNull(session('_token'));
+        $response->assertRedirect(route('admin.login'));
     }
 }

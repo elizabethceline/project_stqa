@@ -7,9 +7,11 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 use Tests\TestCase;
 
-class UserSignInTest extends TestCase
+class UserAuthTest extends TestCase
 {
     /**
      * A basic feature test example.
@@ -27,6 +29,16 @@ class UserSignInTest extends TestCase
                 'name' => 'User',
             ]);
         }
+    }
+
+    /** @test */
+    public function it_returns_the_user_login_view()
+    {
+        $response = $this->get(route('user.login'));
+
+        $response->assertStatus(200);
+        $response->assertViewIs('user.login');
+        $response->assertViewHas('title', 'Login Page');
     }
 
     /** @test */
@@ -89,5 +101,17 @@ class UserSignInTest extends TestCase
 
         $response->assertRedirect();
         $response->assertSessionHas('error', 'E-mail tidak ditemukan'); // Check for non-existent email error
+    }
+
+    /** @test */
+    public function it_logs_out_the_user_and_redirects_to_login_page()
+    {
+        session(['customer' => 1]);
+        $this->assertTrue(session()->has('customer'));
+        $response = $this->get(route('user.logout'));
+        session()->flush();
+        $this->assertFalse(session()->has('customer'));
+        $this->assertNull(session('_token'));
+        $response->assertRedirect(route('user.login'));
     }
 }
