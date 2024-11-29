@@ -151,32 +151,4 @@ class BookController extends Controller
         $book->delete();
         return redirect()->route('admin.books')->with('success', 'Book deleted successfully');
     }
-
-    public function reserve($id)
-    {
-        $book = Book::find($id);
-
-        if ($book->count == 0 || $book->availability == 0) {
-            return redirect()->route('user.books')->with('error', 'Book is not available');
-        }
-
-        $book->count -= 1;
-        $book->save();
-
-        $book->customers()->attach(session()->get('customer'));
-
-        return redirect()->route('user.reserves')->with('success', 'Book reserved successfully');
-    }
-
-    public function return($id)
-    {
-        $book = Book::find($id);
-
-        $book->count += 1;
-        $book->save();
-
-        $book->customers()->detach(session()->get('customer'));
-
-        return redirect()->route('user.books')->with('success', 'Book returned successfully');
-    }
 }

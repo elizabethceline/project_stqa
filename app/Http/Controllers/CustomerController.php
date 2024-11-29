@@ -111,10 +111,4 @@ class CustomerController extends Controller
 
         return redirect()->route('user.profile')->with('success', 'Profile updated successfully');
     }
-
-    public function showReserves()
-    {
-        $books = Customer::where('id', session('customer'))->first()->books;
-        return view('user.reserves', compact('books'));
-    }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ReserveController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,10 +56,10 @@ Route::prefix('user')->name('user.')->middleware('user')->group(function () {
     Route::get('/home', [CustomerController::class, 'index'])->name('home');
     Route::get('/books', [BookController::class, 'index'])->name('books');
     Route::post('/books', [BookController::class, 'index'])->name('books.search');
-    Route::post('/books/reserve/{id}', [BookController::class, 'reserve'])->name('books.reserve');
-    Route::delete('books/return/{id}', [BookController::class, 'return'])->name('books.return');
+    Route::post('/books/reserve/{id}', [ReserveController::class, 'reserve'])->name('books.reserve');
+    Route::delete('books/return/{id}', [ReserveController::class, 'return'])->name('books.return');
 
-    Route::get('reserves', [CustomerController::class, 'showReserves'])->name('reserves');
+    Route::get('reserves', [ReserveController::class, 'showReserves'])->name('reserves');
 
     Route::get('profile', [CustomerController::class, 'showProfile'])->name('profile');
     Route::put('profile', [CustomerController::class, 'update'])->name('profile.update');
