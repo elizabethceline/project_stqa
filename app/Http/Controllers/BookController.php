@@ -14,19 +14,11 @@ class BookController extends Controller
         $books = Book::where('name', 'like', '%' . $search . '%')->with('customers')->get();
 
         if (session()->has('admin')) {
-            if ($books->isEmpty()) {
-                return redirect()->route('admin.books')->with('error', 'No book found');
-            }
-
             return view('admin.books', [
                 'search' => $search,
                 'books' => $books
             ]);
         } else if (session()->has('customer')) {
-            if ($books->isEmpty()) {
-                return redirect()->route('user.books')->with('error', 'No book found');
-            }
-
             return view('user.books', [
                 'search' => $search,
                 'books' => $books
@@ -147,6 +139,9 @@ class BookController extends Controller
         $book = Book::find($id);
         if (!$book) {
             return redirect()->route('admin.books')->with('error', 'Book not found');
+        }
+        if ($book->customers->count() > 0) {
+            return redirect()->route('admin.books')->with('error', 'Book is still reserved by customer');
         }
         $book->delete();
         return redirect()->route('admin.books')->with('success', 'Book deleted successfully');
