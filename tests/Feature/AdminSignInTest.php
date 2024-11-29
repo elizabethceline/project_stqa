@@ -16,10 +16,12 @@ class AdminSignInTest extends TestCase
         parent::setUp();
 
         // Create a test admin user
-        Admin::create([
-            'email' => 'admin@admin.com',
-            'password' => Hash::make('password'),
-        ]);
+        if (!Admin::where('email', 'admin@admin.com')->exists()) {
+            Admin::create([
+                'email' => 'admin@admin.com',
+                'password' => Hash::make('password'),
+            ]);
+        }
     }
 
     /** @test */
