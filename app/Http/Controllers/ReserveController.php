@@ -22,6 +22,11 @@ class ReserveController extends Controller
             return redirect()->route('user.books')->with('error', 'Book is not available');
         }
 
+        $customer = Customer::find(session()->get('customer'));
+        if ($customer->books->contains($book)) {
+            return redirect()->route('user.books')->with('error', 'Book already reserved');
+        }
+
         $book->count -= 1;
         $book->save();
 
