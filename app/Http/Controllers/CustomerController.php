@@ -47,7 +47,7 @@ class CustomerController extends Controller
     {
         $validator = [
             'name' => 'required|string',
-            'email' => 'required|string|email',
+            'email' => 'required|string|email|unique:customers,email',
             'password' => 'required|string',
             'bio' => 'string',
         ];
@@ -56,6 +56,7 @@ class CustomerController extends Controller
             'required' => ':attribute harus diisi',
             'string' => ':attribute harus berupa string',
             'email' => ':attribute harus berupa email',
+            'unique' => ':attribute sudah terdaftar',
         ];
 
         $attributes = [

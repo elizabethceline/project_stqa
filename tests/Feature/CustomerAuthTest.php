@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Tests\TestCase;
 
-class UserAuthTest extends TestCase
+class CustomerAuthTest extends TestCase
 {
     /**
      * A basic feature test example.
