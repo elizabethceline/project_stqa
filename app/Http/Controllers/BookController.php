@@ -145,6 +145,9 @@ class BookController extends Controller
     public function delete($id)
     {
         $book = Book::find($id);
+        if (!$book) {
+            return redirect()->route('admin.books')->with('error', 'Book not found');
+        }
         $book->delete();
         return redirect()->route('admin.books')->with('success', 'Book deleted successfully');
     }
