@@ -27,6 +27,12 @@ class CustomerController extends Controller
     public function delete($id)
     {
         $customer = Customer::find($id);
+        if (!$customer) {
+            return redirect()->route('admin.users')->with('error', 'User not found');
+        }
+        if ($customer->books->count() > 0) {
+            return redirect()->route('admin.users')->with('error', 'User cannot be deleted because they still have books');
+        }
         $customer->delete();
         return redirect()->route('admin.users')->with('success', 'User deleted successfully');
     }
