@@ -80,10 +80,11 @@ class BookControllerTest extends TestCase
         $response = $controller->create($request);
 
         $this->assertEquals(302, $response->getStatusCode());
+        $this->assertEquals('Book created successfully', session('success'));
     }
 
     /** @test */
-    public function it_returns_validation_error_when_creating_book_with_invalid_data()
+    public function it_returns_validation_error_when_creating_book_with_missing_fields()
     {
         $request = Request::create('/books', 'POST', [
             'name' => '', // Invalid data
@@ -106,6 +107,34 @@ class BookControllerTest extends TestCase
         $response = $controller->create($request);
 
         $this->assertEquals(302, $response->getStatusCode());
+        $this->assertEquals('Name is required.', session('error'));
+    }
+
+    /** @test */
+    public function it_returns_validation_error_when_creating_book_with_incorrect_data_type()
+    {
+        $request = Request::create('/books', 'POST', [
+            'name' => 'Joni',
+            'desc' => 'Book Description',
+            'author' => 'Author Name',
+            'availability' => 1,
+            'edition' => '1st Edition',
+            'count' => 'invalid', // Invalid data type
+        ]);
+
+        $validatorMock = Mockery::mock('alias:Illuminate\Support\Facades\Validator');
+        $validatorMock->shouldReceive('make')
+            ->once()
+            ->with($request->only(['name', 'desc', 'author', 'availability', 'edition', 'count']), Mockery::type('array'), Mockery::type('array'), Mockery::type('array'))
+            ->andReturnSelf();
+        $validatorMock->shouldReceive('fails')->once()->andReturn(true);
+        $validatorMock->shouldReceive('errors->first')->once()->andReturn('Count must be a number.');
+
+        $controller = new BookController();
+        $response = $controller->create($request);
+
+        $this->assertEquals(302, $response->getStatusCode());
+        $this->assertEquals('Count must be a number.', session('error'));
     }
 
     /** @test */
@@ -148,6 +177,7 @@ class BookControllerTest extends TestCase
         $response = $controller->update($request);
 
         $this->assertEquals(302, $response->getStatusCode());
+        $this->assertEquals('Book updated successfully', session('success'));
     }
 
     /** @test */
@@ -167,5 +197,6 @@ class BookControllerTest extends TestCase
         $response = $controller->delete(1);
 
         $this->assertEquals(302, $response->getStatusCode());
+        $this->assertEquals('Book deleted successfully', session('success'));
     }
 }
