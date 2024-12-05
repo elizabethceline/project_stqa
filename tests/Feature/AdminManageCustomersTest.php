@@ -72,6 +72,6 @@ class AdminManageCustomersTest extends TestCase
         $response = $this->delete(route('admin.users.delete', ['id' => $customer->id]));
 
         $response->assertRedirect(route('admin.users'));
-        $response->assertSessionHas('error', 'User cannot be deleted because they still have book(s) reserved');
+        $response->assertSessionHas('error', 'User cannot be deleted because they still have books');
     }
 }
