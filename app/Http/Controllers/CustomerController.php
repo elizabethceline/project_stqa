@@ -49,7 +49,6 @@ class CustomerController extends Controller
             'name' => 'required|string',
             'email' => 'required|string|email|unique:customers,email',
             'password' => 'required|string',
-            'bio' => 'string',
         ];
 
         $messages = [
