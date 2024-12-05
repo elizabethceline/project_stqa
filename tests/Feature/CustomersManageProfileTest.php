@@ -64,16 +64,29 @@ class CustomersManageProfileTest extends TestCase
     }
 
     /** @test */
-    public function it_fails_to_update_profile_with_missing_field()
+    public function it_fails_to_update_profile_with_missing_name()
     {
         $response = $this->put(route('user.profile.update', ['id' => $this->customer->id]), [
             'name' => '',
-            'email' => '',
+            'email' => 'hai@gmail.com',
             'bio' => 'This is a test bio.',
         ]);
 
         $response->assertRedirect();
         $response->assertSessionHas('error', 'Name harus diisi');
+    }
+
+    /** @test */
+    public function it_fails_to_update_profile_with_missing_email()
+    {
+        $response = $this->put(route('user.profile.update', ['id' => $this->customer->id]), [
+            'name' => 'John Doe',
+            'email' => '',
+            'bio' => 'This is a test bio.',
+        ]);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('error', 'E-mail harus diisi');
     }
 
     /** @test */

@@ -44,17 +44,45 @@ class CustomersSignUpTest extends TestCase
     }
 
     /** @test */
-    public function it_fails_to_sign_up_with_missing_fields()
+    public function it_fails_to_sign_up_with_missing_name()
     {
         $response = $this->post(route('user.signup.validate'), [
             'name' => '',
-            'email' => '',
-            'password' => '',
-            'bio' => 'This is a bio',
+            'email' => 'josh@example.com',
+            'password' => 'password123',
+            'bio' => 'This is a test bio.',
         ]);
 
         $response->assertRedirect();
         $response->assertSessionHas('error', 'Name harus diisi');
+    }
+
+    /** @test */
+    public function it_fails_to_sign_up_with_missing_email()
+    {
+        $response = $this->post(route('user.signup.validate'), [
+            'name' => 'Josh Doe',
+            'email' => '',
+            'password' => 'password123',
+            'bio' => 'This is a test bio.',
+        ]);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('error', 'E-mail harus diisi');
+    }
+
+    /** @test */
+    public function it_fails_to_sign_up_with_missing_password()
+    {
+        $response = $this->post(route('user.signup.validate'), [
+            'name' => 'Josh Doe',
+            'email' => 'josh@example.com',
+            'password' => '',
+            'bio' => 'This is a test bio.',
+        ]);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('error', 'Password harus diisi');
     }
 
     /** @test */
