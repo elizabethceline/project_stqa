@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
-class CustomersSignUpTest extends TestCase
+class UserSignUpTest extends TestCase
 {
     /**
      * A basic feature test example.
