@@ -46,8 +46,8 @@ class CustomerController extends Controller
     public function create(Request $request)
     {
         $validator = [
-            'name' => 'required|string',
-            'email' => 'required|string|email|unique:customers,email',
+            'name' => 'required|string|min:3|max:100',
+            'email' => 'required|string|email|unique:customers,email|max:100',
             'password' => 'required|string',
         ];
 
@@ -56,6 +56,8 @@ class CustomerController extends Controller
             'string' => ':attribute harus berupa string',
             'email' => ':attribute harus berupa email',
             'unique' => ':attribute sudah terdaftar',
+            'min' => ':attribute minimal :min karakter',
+            'max' => ':attribute maksimal :max karakter',
         ];
 
         $attributes = [
@@ -84,8 +86,8 @@ class CustomerController extends Controller
     public function update(Request $request)
     {
         $validator = [
-            'name' => 'required|string',
-            'email' => 'required|string|email|unique:customers,email,' . session('customer'),
+            'name' => 'required|string|min:3|max:100',
+            'email' => 'required|string|email|max:100|unique:customers,email,' . session('customer'),
             'bio' => 'string',
         ];
 
@@ -94,6 +96,8 @@ class CustomerController extends Controller
             'string' => ':attribute harus berupa string',
             'email' => ':attribute harus berupa email',
             'unique' => ':attribute sudah digunakan',
+            'min' => ':attribute minimal :min karakter',
+            'max' => ':attribute maksimal :max karakter',
         ];
 
         $attributes = [

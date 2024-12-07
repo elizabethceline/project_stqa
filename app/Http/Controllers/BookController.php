@@ -36,11 +36,11 @@ class BookController extends Controller
     public function create(Request $request)
     {
         $validator = [
-            'name' => 'required|string',
+            'name' => 'required|string|min:3|max:255',
             'desc' => 'required|string',
-            'author' => 'required|string',
+            'author' => 'required|string|min:3|max:100',
             'availability' => 'required|numeric|in:0,1',
-            'edition' => 'required|string',
+            'edition' => 'required|string|min:3|max:100',
             'count' => 'required|numeric|min:0',
         ];
 
@@ -49,7 +49,9 @@ class BookController extends Controller
             'string' => ':attribute harus berupa string',
             'numeric' => ':attribute harus berupa angka',
             'in' => ':attribute harus 0 atau 1',
-            'min' => ':attribute minimal 0',
+            'min' => ':attribute minimal :min karakter',
+            'max' => ':attribute maksimal :max karakter',
+            'count.min' => 'Count minimal :min',
         ];
 
         $attributes = [
@@ -91,11 +93,11 @@ class BookController extends Controller
     public function update(Request $request)
     {
         $validator = [
-            'name' => 'required|string',
+            'name' => 'required|string|min:3|max:255',
             'desc' => 'required|string',
-            'author' => 'required|string',
+            'author' => 'required|string|min:3|max:100',
             'availability' => 'required|numeric|in:0,1',
-            'edition' => 'required|string',
+            'edition' => 'required|string|min:3|max:100',
             'count' => 'required|numeric|min:0',
         ];
 
@@ -104,7 +106,9 @@ class BookController extends Controller
             'string' => ':attribute harus berupa string',
             'numeric' => ':attribute harus berupa angka',
             'in' => ':attribute harus 0 atau 1',
-            'min' => ':attribute minimal 0',
+            'min' => ':attribute minimal :min karakter',
+            'max' => ':attribute maksimal :max karakter',
+            'count.min' => 'Count minimal :min',
         ];
 
         $attributes = [
