@@ -22,11 +22,11 @@ class BookFactory extends Factory
     {
         return [
             'id' => Str::uuid(),
-            'name' => $this->faker->sentence,
-            'desc' => $this->faker->paragraph,
+            'name' => $this->faker->words(3, true),
+            'desc' => $this->faker->text(200),
             'author' => $this->faker->name,
             'availability' => $this->faker->numberBetween(0, 1),
-            'edition' => $this->faker->word,
+            'edition' => $this->faker->words(3, true),
             'count' => $this->faker->numberBetween(1, 100),
         ];
     }

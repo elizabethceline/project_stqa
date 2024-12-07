@@ -108,4 +108,100 @@ class AdminMengubahBukuTest extends TestCase
             'count' => -2,
         ]);
     }
+
+    /** @test */
+    public function it_fails_to_update_book_name_with_less_than_3_characters()
+    {
+        $book = Book::factory()->create();
+
+        $data = [
+            'id' => $book->id,
+            'name' => 'Aa',
+            'desc' => $book->desc,
+            'author' => $book->author,
+            'availability' => $book->availability,
+            'edition' => $book->edition,
+            'count' => $book->count,
+        ];
+
+        $response = $this->put(route('admin.books.update', ['id' => $book->id]), $data);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('error', 'Name minimal 3 karakter');
+        $this->assertDatabaseMissing('books', [
+            'name' => 'Aa',
+        ]);
+    }
+
+    /** @test */
+    public function it_successfully_updates_book_name_to_3_characters()
+    {
+        $book = Book::factory()->create();
+
+        $data = [
+            'id' => $book->id,
+            'name' => 'Aaa',
+            'desc' => $book->desc,
+            'author' => $book->author,
+            'availability' => $book->availability,
+            'edition' => $book->edition,
+            'count' => $book->count,
+        ];
+
+        $response = $this->put(route('admin.books.update', ['id' => $book->id]), $data);
+
+        $response->assertRedirect(route('admin.books'));
+        $response->assertSessionHas('success', 'Book updated successfully');
+        $this->assertDatabaseHas('books', [
+            'name' => 'Aaa',
+        ]);
+    }
+
+    /** @test */
+    public function it_successfully_updates_book_name_to_4_characters()
+    {
+        $book = Book::factory()->create();
+
+        $data = [
+            'id' => $book->id,
+            'name' => 'Aaaa',
+            'desc' => $book->desc,
+            'author' => $book->author,
+            'availability' => $book->availability,
+            'edition' => $book->edition,
+            'count' => $book->count,
+        ];
+
+        $response = $this->put(route('admin.books.update', ['id' => $book->id]), $data);
+
+        $response->assertRedirect(route('admin.books'));
+        $response->assertSessionHas('success', 'Book updated successfully');
+        $this->assertDatabaseHas('books', [
+            'name' => 'Aaaa',
+        ]);
+    }
+
+    /** @test */
+    public function it_successfully_updates_book_name_to_chinese_characters()
+    {
+        $book = Book::factory()->create();
+
+        $data = [
+            'id' => $book->id,
+            'name' => '这是一本新书',
+            'desc' => $book->desc,
+            'author' => $book->author,
+            'availability' => $book->availability,
+            'edition' => $book->edition,
+            'count' => $book->count,
+        ];
+
+        $response = $this->put(route('admin.books.update', ['id' => $book->id]), $data);
+
+        $response->assertRedirect(route('admin.books'));
+        $response->assertSessionHas('success', 'Book updated successfully');
+        $this->assertDatabaseHas('books', [
+            'name' => '这是一本新书',
+        ]);
+    }
 }
