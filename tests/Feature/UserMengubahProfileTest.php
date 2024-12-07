@@ -17,7 +17,7 @@ class UserMengubahProfileTest extends TestCase
 
         //login first
         $this->customer = Customer::factory()->create([
-            'password' => bcrypt('password'), 
+            'password' => bcrypt('password'),
         ]);
 
         // Login pengguna
@@ -81,6 +81,12 @@ class UserMengubahProfileTest extends TestCase
             'bio' => 'This is a test bio.',
         ]);
 
+        $this->assertDatabaseMissing('customers', [
+            'name' => 'John Doe',
+            'email' => 'invalid-email',
+            'bio' => 'This is a test bio.',
+        ]);
+
         $response->assertRedirect();
         $response->assertSessionHas('error', 'E-mail harus berupa email');
     }
@@ -97,5 +103,73 @@ class UserMengubahProfileTest extends TestCase
         ]);
         $response->assertRedirect();
         $response->assertSessionHas('error', 'E-mail sudah digunakan');
+    }
+
+    /** @test */
+    public function it_successfully_updates_profile_with_99_characters_name()
+    {
+        $response = $this->put(route('user.profile.update', ['id' => $this->customer->id]), [
+            'name' => str_repeat('a', 99),
+            'email' => $this->customer->email
+        ]);
+
+        $this->assertDatabaseHas('customers', [
+            'name' => str_repeat('a', 99),
+            'email' => $this->customer->email
+        ]);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('success', 'Profile updated successfully');
+    }
+
+    /** @test */
+    public function it_successfully_updates_profile_with_100_characters_name()
+    {
+        $response = $this->put(route('user.profile.update', ['id' => $this->customer->id]), [
+            'name' => str_repeat('a', 100),
+            'email' => $this->customer->email
+        ]);
+
+        $this->assertDatabaseHas('customers', [
+            'name' => str_repeat('a', 100),
+            'email' => $this->customer->email
+        ]);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('success', 'Profile updated successfully');
+    }
+
+    /** @test */
+    public function it_fails_to_update_profile_with_101_characters_name()
+    {
+        $response = $this->put(route('user.profile.update', ['id' => $this->customer->id]), [
+            'name' => str_repeat('a', 101),
+            'email' => $this->customer->email
+        ]);
+
+        $this->assertDatabaseMissing('customers', [
+            'name' => str_repeat('a', 101),
+            'email' => $this->customer->email
+        ]);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('error', 'Name maksimal 100 karakter');
+    }
+
+    /** @test */
+    public function it_successfully_updates_profile_with_korean_characters_name()
+    {
+        $response = $this->put(route('user.profile.update', ['id' => $this->customer->id]), [
+            'name' => '홍길동',
+            'email' => $this->customer->email
+        ]);
+
+        $this->assertDatabaseHas('customers', [
+            'name' => '홍길동',
+            'email' => $this->customer->email
+        ]);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('success', 'Profile updated successfully');
     }
 }

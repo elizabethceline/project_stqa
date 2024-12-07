@@ -121,4 +121,93 @@ class UserSignUpTest extends TestCase
         $response->assertRedirect();
         $response->assertSessionHas('error', 'E-mail sudah terdaftar');
     }
+
+    /** @test */
+    public function it_allows_customer_to_sign_up_with_99_characters_name()
+    {
+        $data = [
+            'name' => str_repeat('a', 99),
+            'email' => 'tes1@gmail.com',
+            'password' => 'password123',
+            'bio' => 'This is a test bio.',
+        ];
+
+        $response = $this->post(route('user.signup.validate'), $data);
+
+        $this->assertDatabaseHas('customers', [
+            'name' => str_repeat('a', 99),
+            'email' => 'tes1@gmail.com',
+        ]);
+
+        $this->assertTrue(Hash::check('password123', Customer::where('email', 'tes1@gmail.com')->first()->password));
+        $response->assertRedirect(route('user.login'));
+        $response->assertSessionHas('success', 'Account created successfully');
+    }
+
+    /** @test */
+    public function it_allows_customer_to_sign_up_with_100_characters_name()
+    {
+        $data = [
+            'name' => str_repeat('a', 100),
+            'email' => 'tes2@gmail.com',
+            'password' => 'password123',
+            'bio' => 'This is a test bio.',
+        ];
+
+        $response = $this->post(route('user.signup.validate'), $data);
+
+        $this->assertDatabaseHas('customers', [
+            'name' => str_repeat('a', 100),
+            'email' => 'tes2@gmail.com',
+        ]);
+
+        $this->assertTrue(Hash::check('password123', Customer::where('email', 'tes2@gmail.com')->first()->password));
+        $response->assertRedirect(route('user.login'));
+        $response->assertSessionHas('success', 'Account created successfully');
+    }
+
+    /** @test */
+    public function it_fails_to_sign_up_with_101_characters_name()
+    {
+        $data = [
+            'name' => str_repeat('a', 101),
+            'email' => 'tes3@gmail.com',
+            'password' => 'password123',
+            'bio' => 'This is a test bio.',
+        ];
+
+        $response = $this->post(route('user.signup.validate'), $data);
+
+        $this->assertDatabaseMissing('customers', [
+            'name' => str_repeat('a', 101),
+            'email' => 'tes3@gmail.com',
+            'password' => 'password123',
+            'bio' => 'This is a test bio.',
+        ]);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('error', 'Name maksimal 100 karakter');
+    }
+
+    /** @test */
+    public function it_allows_customer_to_sign_up_with_japanese_name()
+    {
+        $data = [
+            'name' => '山田太郎',
+            'email' => 'tes4@gmail.com',
+            'password' => 'password123',
+            'bio' => '山田太郎',
+        ];
+
+        $response = $this->post(route('user.signup.validate'), $data);
+
+        $this->assertDatabaseHas('customers', [
+            'name' => '山田太郎',
+            'email' => 'tes4@gmail.com',
+        ]);
+
+        $this->assertTrue(Hash::check('password123', Customer::where('email', 'tes4@gmail.com')->first()->password));
+        $response->assertRedirect(route('user.login'));
+        $response->assertSessionHas('success', 'Account created successfully');
+    }
 }

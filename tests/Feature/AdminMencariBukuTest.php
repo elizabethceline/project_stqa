@@ -54,4 +54,21 @@ class AdminMencariBukuTest extends TestCase
         $response->assertSee('Books');
         $response->assertSee('No books found');
     }
+
+    /** @test */
+    public function it_searches_for_books_with_russian_name()
+    {
+        $book1 = Book::factory()->create(['name' => 'Книга один']);
+        $book2 = Book::factory()->create(['name' => 'Книга два']);
+
+        $response = $this->get(route('admin.books', ['search_book' => 'Книга один']));
+
+        $response->assertStatus(200);
+        $response->assertViewIs('admin.books');
+        $response->assertViewHas('books');
+        $response->assertViewHas('search');
+        $response->assertSee('Books');
+        $response->assertSee($book1->name);
+        $response->assertDontSee($book2->name);
+    }
 }

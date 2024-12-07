@@ -43,4 +43,15 @@ class UserMengembalikanBukuTest extends TestCase
         $response->assertRedirect(route('user.books'));
         $response->assertSessionHas('success', 'Book returned successfully');
     }
+
+    /** @test */
+    public function it_fails_to_return_a_non_existing_book()
+    {
+        $nonExistentBookId = 9999;
+
+        $response = $this->delete(route('user.books.return', ['id' => $nonExistentBookId]));
+
+        $response->assertRedirect(route('user.books'));
+        $response->assertSessionHas('error', 'Book not found');
+    }
 }

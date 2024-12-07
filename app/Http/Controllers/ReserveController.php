@@ -39,6 +39,10 @@ class ReserveController extends Controller
     {
         $book = Book::find($id);
 
+        if(!$book) {
+            return redirect()->route('user.books')->with('error', 'Book not found');
+        }
+        
         $book->count += 1;
         $book->save();
 

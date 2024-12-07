@@ -76,4 +76,21 @@ class UserMencariBukuTest extends TestCase
         $response->assertSee('Books');
         $response->assertSee('No books found');
     }
+
+    /** @test */
+    public function it_successfully_searches_for_books_with_japanese_name()
+    {
+        $book1 = Book::factory()->create(['name' => '本の一']);
+        $book2 = Book::factory()->create(['name' => '本の二']);
+
+        $response = $this->get(route('user.books', ['search_book' => '本の一']));
+
+        $response->assertStatus(200);
+        $response->assertViewIs('user.books');
+        $response->assertViewHas('books');
+        $response->assertViewHas('search');
+        $response->assertSee('Books');
+        $response->assertSee($book1->name);
+        $response->assertDontSee($book2->name);
+    }
 }
