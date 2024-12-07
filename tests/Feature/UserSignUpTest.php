@@ -190,6 +190,51 @@ class UserSignUpTest extends TestCase
     }
 
     /** @test */
+    public function it_allows_customer_to_sign_up_with_50_characters_name()
+    {
+        $data = [
+            'name' => str_repeat('a', 50),
+            'email' => 'tes9@gmail.com',
+            'password' => 'password123',
+            'bio' => 'This is a test bio.',
+        ];
+
+        $response = $this->post(route('user.signup.validate'), $data);
+
+        $this->assertDatabaseHas('customers', [
+            'name' => str_repeat('a', 50),
+            'email' => 'tes9@gmail.com',
+        ]);
+
+        $this->assertTrue(Hash::check('password123', Customer::where('email', 'tes9@gmail.com')->first()->password));
+        $response->assertRedirect(route('user.login'));
+        $response->assertSessionHas('success', 'Account created successfully');
+    }
+
+    /** @test */
+    public function it_fails_to_sign_up_with_150_characters_name()
+    {
+        $data = [
+            'name' => str_repeat('a', 150),
+            'email' => 'tes3@gmail.com',
+            'password' => 'password123',
+            'bio' => 'This is a test bio.',
+        ];
+
+        $response = $this->post(route('user.signup.validate'), $data);
+
+        $this->assertDatabaseMissing('customers', [
+            'name' => str_repeat('a', 150),
+            'email' => 'tes3@gmail.com',
+            'password' => 'password123',
+            'bio' => 'This is a test bio.',
+        ]);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('error', 'Name maksimal 100 karakter');
+    }
+
+    /** @test */
     public function it_allows_customer_to_sign_up_with_japanese_name()
     {
         $data = [
