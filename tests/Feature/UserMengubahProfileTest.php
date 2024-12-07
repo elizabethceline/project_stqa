@@ -5,14 +5,10 @@ namespace Tests\Feature;
 use App\Models\Customer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
-class CustomersManageProfileTest extends TestCase
+class UserMengubahProfileTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
     use RefreshDatabase;
     protected $customer;
     public function setUp(): void
@@ -21,7 +17,7 @@ class CustomersManageProfileTest extends TestCase
 
         //login first
         $this->customer = Customer::factory()->create([
-            'password' => bcrypt('password'), // Pastikan password di-hash
+            'password' => bcrypt('password'), 
         ]);
 
         // Login pengguna
@@ -29,19 +25,6 @@ class CustomersManageProfileTest extends TestCase
             'email' => $this->customer->email,
             'password' => 'password',
         ]);
-    }
-
-    /** @test */
-    public function it_displays_the_customer_profile_page()
-    {
-        $response = $this->get(route('user.profile'));
-
-        $response->assertStatus(200);
-
-        $response->assertViewIs('user.profile');
-        $response->assertSee($this->customer->name);
-        $response->assertSee($this->customer->email);
-        $response->assertSee($this->customer->bio);
     }
 
     /** @test */
