@@ -137,4 +137,134 @@ class AdminTambahBukuBaruTest extends TestCase
             'count' => 1,
         ]);
     }
+
+    /** @test */
+    public function it_successfully_creates_book_with_254_characters_name()
+    {
+        $book = [
+            'name' => str_repeat('a', 254),
+            'desc' => 'Description 1',
+            'author' => 'Author 1',
+            'availability' => 0,
+            'edition' => '1st',
+            'count' => 1,
+        ];
+
+        $response = $this->post(route('admin.books.create'), $book);
+
+        $response->assertRedirect(route('admin.books'));
+        $response->assertSessionHas('success', 'Book created successfully');
+        $this->assertDatabaseHas('books', [
+            'name' => str_repeat('a', 254),
+            'desc' => 'Description 1',
+            'author' => 'Author 1',
+            'availability' => 0,
+            'edition' => '1st',
+            'count' => 1,
+        ]);
+    }
+
+    /** @test */
+    public function it_successfully_creates_book_with_255_characters_name()
+    {
+        $book = [
+            'name' => str_repeat('a', 255),
+            'desc' => 'Description 1',
+            'author' => 'Author 1',
+            'availability' => 0,
+            'edition' => '1st',
+            'count' => 1,
+        ];
+
+        $response = $this->post(route('admin.books.create'), $book);
+
+        $response->assertRedirect(route('admin.books'));
+        $response->assertSessionHas('success', 'Book created successfully');
+        $this->assertDatabaseHas('books', [
+            'name' => str_repeat('a', 255),
+            'desc' => 'Description 1',
+            'author' => 'Author 1',
+            'availability' => 0,
+            'edition' => '1st',
+            'count' => 1,
+        ]);
+    }
+
+    /** @test */
+    public function it_fails_to_create_book_with_256_characters_name()
+    {
+        $book = [
+            'name' => str_repeat('a', 256),
+            'desc' => 'Description 1',
+            'author' => 'Author 1',
+            'availability' => 0,
+            'edition' => '1st',
+            'count' => 1,
+        ];
+
+        $response = $this->post(route('admin.books.create'), $book);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('error', 'Name maksimal 255 karakter');
+        $this->assertDatabaseMissing('books', [
+            'name' => str_repeat('a', 256),
+            'desc' => 'Description 1',
+            'author' => 'Author 1',
+            'availability' => 0,
+            'edition' => '1st',
+            'count' => 1,
+        ]);
+    }
+
+    /** @test */
+    public function it_successfully_creates_book_with_thai_characters()
+    {
+        $book = [
+            'name' => 'ชื่อหนังสือ',
+            'desc' => 'คำอธิบายหนังสือ',
+            'author' => 'ชื่อผู้แต่ง',
+            'availability' => 1,
+            'edition' => 'ฉบับที่ 1',
+            'count' => 1,
+        ];
+
+        $response = $this->post(route('admin.books.create'), $book);
+
+        $response->assertRedirect(route('admin.books'));
+        $response->assertSessionHas('success', 'Book created successfully');
+        $this->assertDatabaseHas('books', [
+            'name' => 'ชื่อหนังสือ',
+            'desc' => 'คำอธิบายหนังสือ',
+            'author' => 'ชื่อผู้แต่ง',
+            'availability' => 1,
+            'edition' => 'ฉบับที่ 1',
+            'count' => 1,
+        ]);
+    }
+
+    //use chinese language
+    public function it_successfully_creates_book_with_chinese_characters()
+    {
+        $book = [
+            'name' => '书名',
+            'desc' => '书的描述',
+            'author' => '作者',
+            'availability' => 1,
+            'edition' => '第一版',
+            'count' => 1,
+        ];
+
+        $response = $this->post(route('admin.books.create'), $book);
+
+        $response->assertRedirect(route('admin.books'));
+        $response->assertSessionHas('success', 'Book created successfully');
+        $this->assertDatabaseHas('books', [
+            'name' => '书名',
+            'desc' => '书的描述',
+            'author' => '作者',
+            'availability' => 1,
+            'edition' => '第一版',
+            'count' => 1,
+        ]);
+    }
 }
