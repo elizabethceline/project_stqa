@@ -60,12 +60,16 @@
                                             </td>
                                             <td
                                                 class=" border-e border-neutral-200 px-6 py-4 font-medium dark:border-white/10">
-                                                <button type="button"
-                                                    class="text-xs text-white font-medium inline-block rounded bg-warning px-6 pb-2.5 pt-2.5 uppercase leading-normal text-white shadow-warning-3 transition duration-150 ease-in-out hover:bg-warning-accent-300 hover:shadow-warning-2 focus:bg-warning-accent-300 focus:shadow-warning-2 focus:outline-none focus:ring-0 active:bg-warning-600 active:shadow-warning-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
-                                                    data-twe-ripple-init data-twe-ripple-color="light"
-                                                    onclick="showBooks('{{ $customer['name'] }}', {!! e(json_encode($customer['books'])) !!})">
-                                                    View
-                                                </button>
+                                                @if($customer->books->isEmpty())
+                                                    <p class="text-red-500">No books found</p>
+                                                @else
+                                                    <button type="button"
+                                                        class="text-xs text-white font-medium inline-block rounded bg-warning px-6 pb-2.5 pt-2.5 uppercase leading-normal text-white shadow-warning-3 transition duration-150 ease-in-out hover:bg-warning-accent-300 hover:shadow-warning-2 focus:bg-warning-accent-300 focus:shadow-warning-2 focus:outline-none focus:ring-0 active:bg-warning-600 active:shadow-warning-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                                                        data-twe-ripple-init data-twe-ripple-color="light"
+                                                        onclick="showBooks('{{ $customer['name'] }}', {!! e(json_encode($customer['books'])) !!})">
+                                                        View
+                                                    </button>
+                                                @endif
                                             </td>
                                             <td
                                                 class=" border-e border-neutral-200 px-6 py-4 font-medium dark:border-white/10">
