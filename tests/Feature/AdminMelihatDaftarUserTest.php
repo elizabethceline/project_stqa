@@ -51,4 +51,17 @@ class AdminMelihatDaftarUserTest extends TestCase
         $response->assertViewIs('admin.customers');
         $response->assertSee('No users found');
     }
+
+    /** @test */
+    public function it_displays_no_books_message_when_user_has_no_books()
+    {
+        $customer = Customer::factory()->create();
+
+        $response = $this->get(route('admin.users'));
+
+        $response->assertStatus(200);
+        $response->assertViewIs('admin.customers');
+        $response->assertSee($customer->name);
+        $response->assertSee('No books found');
+    }
 }
