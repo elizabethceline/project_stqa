@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Book;
 use App\Models\Customer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
@@ -37,5 +38,17 @@ class AdminMelihatDaftarUserTest extends TestCase
         $response->assertViewIs('admin.customers');
         $response->assertSee($customer->name);
         $response->assertSee($book->name);
+    }
+
+    /** @test */
+    public function it_displays_no_users_found_message_when_no_customers_exist()
+    {
+        DB::table('customers')->delete();
+
+        $response = $this->get(route('admin.users'));
+
+        $response->assertStatus(200);
+        $response->assertViewIs('admin.customers');
+        $response->assertSee('No users found');
     }
 }
