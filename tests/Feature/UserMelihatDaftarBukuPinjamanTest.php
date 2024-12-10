@@ -16,12 +16,10 @@ class UserMelihatDaftarBukuPinjamanTest extends TestCase
     {
         parent::setUp();
 
-        //login first
         $this->customer = Customer::factory()->create([
-            'password' => bcrypt('password'), // Pastikan password di-hash
+            'password' => bcrypt('password'),
         ]);
 
-        // Login pengguna
         $this->post(route('user.login.validate'), [
             'email' => $this->customer->email,
             'password' => 'password',
@@ -31,7 +29,6 @@ class UserMelihatDaftarBukuPinjamanTest extends TestCase
     /** @test */
     public function it_displays_the_customer_reserves_page()
     {
-        //attach book to this customer
         $book = Book::factory()->create();
         $this->customer->books()->attach($book);
 
@@ -43,5 +40,18 @@ class UserMelihatDaftarBukuPinjamanTest extends TestCase
         $response->assertSee($this->customer->books[0]->name);
         $response->assertSee($this->customer->books[0]->author);
         $response->assertSee($this->customer->books[0]->description);
+    }
+
+    /** @test */
+    public function it_displays_no_books_message_when_customer_has_no_books_reserved()
+    {
+        $this->customer->books()->detach();
+
+        $response = $this->get(route('user.reserves'));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('user.reserves');
+        $response->assertSee('No reserve found');
     }
 }

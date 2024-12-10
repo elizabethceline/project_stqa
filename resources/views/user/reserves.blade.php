@@ -6,7 +6,7 @@
 
         @if ($books->isEmpty())
             <div class="w-full flex justify-center items-center">
-                <p class="text-lg mt-4">No reserves found.</p>
+                <p class="text-lg mt-4">No reserve found.</p>
             </div>
         @else
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4 w-full">
@@ -19,12 +19,12 @@
                                 {{ $book->author }}
                             </p>
                             <p class="mb-4 text-base">
-                                {{ $book->desc }}
+                                {{ $book->description }}
                             </p>
                         </div>
 
                         <div class="flex gap-4 mt-2">
-                            <form onsubmit="return confirm('Apakah Anda Yakin ?');"
+                            <form onsubmit="return confirm('Are you sure you want to return this book?');"
                                 action="{{ route('user.books.return', ['id' => $book->id]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
