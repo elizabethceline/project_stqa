@@ -15,7 +15,6 @@ class AdminSignOutTest extends TestCase
     {
         parent::setUp();
 
-        // Create a test admin user
         if (!Admin::where('email', 'admin@admin.com')->exists()) {
             Admin::create([
                 'email' => 'admin@admin.com',

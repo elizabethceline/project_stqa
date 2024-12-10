@@ -23,13 +23,6 @@ class AdminMenghapusUserTest extends TestCase
         ]);
     }
 
-    public function test_example(): void
-    {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
-    }
-
     /** @test */
     public function it_deletes_a_valid_customer()
     {

@@ -24,7 +24,6 @@ class AdminTambahBukuBaruTest extends TestCase
     /** @test */
     public function it_displays_the_create_book_page()
     {
-        // Akses halaman add book
         $response = $this->get(route('admin.books.add'));
 
         $response->assertStatus(200);
@@ -242,7 +241,7 @@ class AdminTambahBukuBaruTest extends TestCase
         ]);
     }
 
-    //use chinese language
+    /** @test */
     public function it_successfully_creates_book_with_chinese_characters()
     {
         $book = [

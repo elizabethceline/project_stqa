@@ -45,7 +45,7 @@ class AdminSignInTest extends TestCase
 
         $response->assertRedirect(route('admin.home'));
         $response->assertSessionHas('success', 'Login Berhasil');
-        $this->assertTrue(session()->has('admin')); // Check if session is set
+        $this->assertTrue(session()->has('admin'));
     }
 
     /** @test */
@@ -58,7 +58,7 @@ class AdminSignInTest extends TestCase
 
         $response->assertRedirect();
         $response->assertSessionHas('error', 'Password Salah');
-        $this->assertFalse(session()->has('admin')); // Ensure session is not set
+        $this->assertFalse(session()->has('admin'));
     }
 
     /** @test */
@@ -94,6 +94,6 @@ class AdminSignInTest extends TestCase
         ]);
 
         $response->assertRedirect();
-        $response->assertSessionHas('error', 'E-mail tidak ditemukan'); // Check for non-existent email error
+        $response->assertSessionHas('error', 'E-mail tidak ditemukan');
     }
 }
