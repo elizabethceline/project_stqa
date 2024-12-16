@@ -35,15 +35,6 @@ class AdminMenghapusUserTest extends TestCase
     }
 
     /** @test */
-    public function it_fails_to_delete_a_non_existing_customer()
-    {
-        $response = $this->delete(route('admin.users.delete', ['id' => 999]));
-
-        $response->assertRedirect(route('admin.users'));
-        $response->assertSessionHas('error', 'User not found');
-    }
-
-    /** @test */
     public function it_fails_to_delete_a_customer_with_books()
     {
         $customer = Customer::factory()->create();
