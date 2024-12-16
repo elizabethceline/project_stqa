@@ -62,6 +62,6 @@ class AdminMelihatDaftarUserTest extends TestCase
         $response->assertStatus(200);
         $response->assertViewIs('admin.customers');
         $response->assertSee($customer->name);
-        $response->assertSee('No books found');
+        $response->assertSee('No books reserved');
     }
 }
