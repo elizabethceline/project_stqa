@@ -88,11 +88,11 @@ class AdminTambahBukuBaruTest extends TestCase
     public function it_fails_to_create_book_with_negative_count()
     {
         $book = [
-            'name' => 'Book with Negative Count',
-            'desc' => 'Description for this book',
-            'author' => 'Some Author',
+            'name' => 'New Book',
+            'desc' => 'Book description',
+            'author' => 'Author Name',
             'availability' => 1,
-            'edition' => 'Edition 1',
+            'edition' => 'First',
             'count' => -5,
         ];
 
@@ -101,11 +101,11 @@ class AdminTambahBukuBaruTest extends TestCase
         $response->assertRedirect();
         $response->assertSessionHas('error', 'Count minimal 0');
         $this->assertDatabaseMissing('books', [
-            'name' => 'Book with Negative Count',
-            'desc' => 'Description for this book',
-            'author' => 'Some Author',
+            'name' => 'New Book',
+            'desc' => 'Book description',
+            'author' => 'Author Name',
             'availability' => 1,
-            'edition' => 'Edition 1',
+            'edition' => 'First',
             'count' => -5,
         ]);
     }
@@ -116,11 +116,11 @@ class AdminTambahBukuBaruTest extends TestCase
     {
         $book = [
             'name' => '',
-            'desc' => 'Description 1',
-            'author' => 'Author 1',
-            'availability' => 0,
-            'edition' => '1st',
-            'count' => 1,
+            'desc' => 'Book description',
+            'author' => 'Author Name',
+            'availability' => 1,
+            'edition' => 'First',
+            'count' => 10,
         ];
 
         $response = $this->post(route('admin.books.create'), $book);
@@ -129,11 +129,11 @@ class AdminTambahBukuBaruTest extends TestCase
         $response->assertSessionHas('error', 'Name harus diisi');
         $this->assertDatabaseMissing('books', [
             'name' => '',
-            'desc' => 'Description 1',
-            'author' => 'Author 1',
-            'availability' => 0,
-            'edition' => '1st',
-            'count' => 1,
+            'desc' => 'Book description',
+            'author' => 'Author Name',
+            'availability' => 1,
+            'edition' => 'First',
+            'count' => 10,
         ]);
     }
 
@@ -142,11 +142,11 @@ class AdminTambahBukuBaruTest extends TestCase
     {
         $book = [
             'name' => str_repeat('a', 254),
-            'desc' => 'Description 1',
-            'author' => 'Author 1',
-            'availability' => 0,
-            'edition' => '1st',
-            'count' => 1,
+            'desc' => 'Book description',
+            'author' => 'Author Name',
+            'availability' => 1,
+            'edition' => 'First',
+            'count' => 10,
         ];
 
         $response = $this->post(route('admin.books.create'), $book);
@@ -155,11 +155,11 @@ class AdminTambahBukuBaruTest extends TestCase
         $response->assertSessionHas('success', 'Book created successfully');
         $this->assertDatabaseHas('books', [
             'name' => str_repeat('a', 254),
-            'desc' => 'Description 1',
-            'author' => 'Author 1',
-            'availability' => 0,
-            'edition' => '1st',
-            'count' => 1,
+            'desc' => 'Book description',
+            'author' => 'Author Name',
+            'availability' => 1,
+            'edition' => 'First',
+            'count' => 10,
         ]);
     }
 
@@ -168,11 +168,11 @@ class AdminTambahBukuBaruTest extends TestCase
     {
         $book = [
             'name' => str_repeat('a', 255),
-            'desc' => 'Description 1',
-            'author' => 'Author 1',
-            'availability' => 0,
-            'edition' => '1st',
-            'count' => 1,
+            'desc' => 'Book description',
+            'author' => 'Author Name',
+            'availability' => 1,
+            'edition' => 'First',
+            'count' => 10,
         ];
 
         $response = $this->post(route('admin.books.create'), $book);
@@ -181,11 +181,11 @@ class AdminTambahBukuBaruTest extends TestCase
         $response->assertSessionHas('success', 'Book created successfully');
         $this->assertDatabaseHas('books', [
             'name' => str_repeat('a', 255),
-            'desc' => 'Description 1',
-            'author' => 'Author 1',
-            'availability' => 0,
-            'edition' => '1st',
-            'count' => 1,
+            'desc' => 'Book description',
+            'author' => 'Author Name',
+            'availability' => 1,
+            'edition' => 'First',
+            'count' => 10,
         ]);
     }
 
@@ -194,11 +194,11 @@ class AdminTambahBukuBaruTest extends TestCase
     {
         $book = [
             'name' => str_repeat('a', 256),
-            'desc' => 'Description 1',
-            'author' => 'Author 1',
-            'availability' => 0,
-            'edition' => '1st',
-            'count' => 1,
+            'desc' => 'Book description',
+            'author' => 'Author Name',
+            'availability' => 1,
+            'edition' => 'First',
+            'count' => 10,
         ];
 
         $response = $this->post(route('admin.books.create'), $book);
@@ -207,11 +207,11 @@ class AdminTambahBukuBaruTest extends TestCase
         $response->assertSessionHas('error', 'Name maksimal 255 karakter');
         $this->assertDatabaseMissing('books', [
             'name' => str_repeat('a', 256),
-            'desc' => 'Description 1',
-            'author' => 'Author 1',
-            'availability' => 0,
-            'edition' => '1st',
-            'count' => 1,
+            'desc' => 'Book description',
+            'author' => 'Author Name',
+            'availability' => 1,
+            'edition' => 'First',
+            'count' => 10,
         ]);
     }
 
@@ -224,7 +224,7 @@ class AdminTambahBukuBaruTest extends TestCase
             'author' => 'ชื่อผู้แต่ง',
             'availability' => 1,
             'edition' => 'ฉบับที่ 1',
-            'count' => 1,
+            'count' => 10,
         ];
 
         $response = $this->post(route('admin.books.create'), $book);
@@ -237,7 +237,7 @@ class AdminTambahBukuBaruTest extends TestCase
             'author' => 'ชื่อผู้แต่ง',
             'availability' => 1,
             'edition' => 'ฉบับที่ 1',
-            'count' => 1,
+            'count' => 10,
         ]);
     }
 
@@ -250,7 +250,7 @@ class AdminTambahBukuBaruTest extends TestCase
             'author' => '作者',
             'availability' => 1,
             'edition' => '第一版',
-            'count' => 1,
+            'count' => 10,
         ];
 
         $response = $this->post(route('admin.books.create'), $book);
@@ -263,7 +263,7 @@ class AdminTambahBukuBaruTest extends TestCase
             'author' => '作者',
             'availability' => 1,
             'edition' => '第一版',
-            'count' => 1,
+            'count' => 10,
         ]);
     }
 }
