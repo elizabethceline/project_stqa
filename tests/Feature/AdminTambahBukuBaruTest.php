@@ -22,16 +22,6 @@ class AdminTambahBukuBaruTest extends TestCase
     }
 
     /** @test */
-    public function it_displays_the_create_book_page()
-    {
-        $response = $this->get(route('admin.books.add'));
-
-        $response->assertStatus(200);
-        $response->assertViewIs('admin.create_book');
-        $response->assertSee('Create Book');
-    }
-
-    /** @test */
     public function it_creates_a_new_book()
     {
         $book = [

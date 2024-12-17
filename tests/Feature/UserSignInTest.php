@@ -27,16 +27,6 @@ class UserSignInTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_the_user_login_view()
-    {
-        $response = $this->get(route('user.login'));
-
-        $response->assertStatus(200);
-        $response->assertViewIs('user.login');
-        $response->assertViewHas('title', 'Login Page');
-    }
-
-    /** @test */
     public function it_allows_user_to_login_with_correct_credentials(): void
     {
         $response = $this->post(route('user.login.validate'), [

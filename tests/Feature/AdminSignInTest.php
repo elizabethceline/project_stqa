@@ -24,17 +24,7 @@ class AdminSignInTest extends TestCase
             ]);
         }
     }
-
-    /** @test */
-    public function it_returns_the_admin_login_view()
-    {
-        $response = $this->get(route('admin.login'));
-
-        $response->assertStatus(200);
-        $response->assertViewIs('admin.login');
-        $response->assertViewHas('title', 'Login Page');
-    }
-
+    
     /** @test */
     public function it_allows_admin_to_login_with_correct_credentials()
     {

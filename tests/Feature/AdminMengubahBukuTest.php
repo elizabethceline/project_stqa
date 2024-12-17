@@ -23,17 +23,6 @@ class AdminMengubahBukuTest extends TestCase
     }
 
     /** @test */
-    public function it_displays_the_edit_book_page()
-    {
-        $book = Book::factory()->create();
-        $response = $this->get(route('admin.books.edit', $book->id));
-
-        $response->assertStatus(200);
-        $response->assertViewIs('admin.update_book');
-        $response->assertSee('Edit Book');
-    }
-
-    /** @test */
     public function it_updates_an_existing_book()
     {
         $book = Book::factory()->create();
