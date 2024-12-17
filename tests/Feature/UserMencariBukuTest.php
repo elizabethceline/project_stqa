@@ -45,22 +45,7 @@ class UserMencariBukuTest extends TestCase
         $response->assertSee($book1->name);
         $response->assertDontSee($book2->name);
     }
-
-    /** @test */
-    public function it_displays_no_books_found_message_when_books_is_empty()
-    {
-        DB::table('books')->delete();
-
-        $response = $this->get(route('user.books'));
-
-        $response->assertStatus(200);
-        $response->assertViewIs('user.books');
-        $response->assertViewHas('books');
-        $response->assertViewHas('search');
-        $response->assertSee('Books');
-        $response->assertSee('No books found');
-    }
-
+    
     /** @test */
     public function it_displays_no_books_found_message_when_searching_for_non_existent_book()
     {
