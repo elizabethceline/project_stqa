@@ -49,4 +49,13 @@ class AdminMenghapusBukuTest extends TestCase
             'count' => 10,
         ]);
     }
+
+    /** @test */
+    public function it_fails_to_delete_a_non_existing_book()
+    {
+        $response = $this->delete(route('admin.books.delete', 9999));
+
+        $response->assertRedirect(route('admin.books'));
+        $response->assertSessionHas('error', 'Book not found');
+    }
 }
