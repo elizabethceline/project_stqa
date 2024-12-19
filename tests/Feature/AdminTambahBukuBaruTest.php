@@ -235,9 +235,9 @@ class AdminTambahBukuBaruTest extends TestCase
     public function it_successfully_creates_book_with_chinese_characters()
     {
         $book = [
-            'name' => '书名',
+            'name' => '书名一',
             'desc' => '书的描述',
-            'author' => '作者',
+            'author' => '作者一',
             'availability' => 1,
             'edition' => '第一版',
             'count' => 10,
@@ -248,9 +248,9 @@ class AdminTambahBukuBaruTest extends TestCase
         $response->assertRedirect(route('admin.books'));
         $response->assertSessionHas('success', 'Book created successfully');
         $this->assertDatabaseHas('books', [
-            'name' => '书名',
+           'name' => '书名一',
             'desc' => '书的描述',
-            'author' => '作者',
+            'author' => '作者一',
             'availability' => 1,
             'edition' => '第一版',
             'count' => 10,
