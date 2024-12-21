@@ -28,7 +28,21 @@ class BookSeeder extends Seeder
                 'author' => 'Harper Lee',
                 'edition' => '1st',
                 'count' => '3',
-            ]
+            ],
+            [
+                'name' => 'Book 1',
+                'desc' => 'Book 1 description',
+                'author' => 'Author 1',
+                'edition' => '1st',
+                'count' => '5',
+            ],
+            [
+                'name' => 'Book 2',
+                'desc' => 'Book 2 description',
+                'author' => 'Author 2',
+                'edition' => '1st',
+                'count' => '6',
+            ],
         ];
 
         foreach ($books as $book) {
