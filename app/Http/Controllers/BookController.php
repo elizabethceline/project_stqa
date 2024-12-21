@@ -12,7 +12,7 @@ class BookController extends Controller
     {
         $search = $request->search_book;
         $books = Book::where('name', 'like', '%' . $search . '%')->with('customers')->get();
-        return response()->json(['success' => 'Book found'], 200);
+        // return response()->json(['success' => 'Book found'], 200);
 
         if (session()->has('admin')) {
             return view('admin.books', [
