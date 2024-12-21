@@ -12,6 +12,7 @@ class BookController extends Controller
     {
         $search = $request->search_book;
         $books = Book::where('name', 'like', '%' . $search . '%')->with('customers')->get();
+        return response()->json(['success' => 'Book found'], 200);
 
         if (session()->has('admin')) {
             return view('admin.books', [
@@ -69,15 +70,16 @@ class BookController extends Controller
             return back()->with('error', $valid->errors()->first());
         }
 
-        Book::create([
-            'name' => $request->name,
-            'desc' => $request->desc,
-            'author' => $request->author,
-            'availability' => $request->availability,
-            'edition' => $request->edition,
-            'count' => $request->count,
-        ]);
+        $book = new Book();
+        $book->name = $request->name;
+        $book->desc = $request->desc;
+        $book->author = $request->author;
+        $book->availability = $request->availability;
+        $book->edition = $request->edition;
+        $book->count = $request->count;
+        $book->save();
 
+        // return response()->json(['success' => 'Book created successfully'], 200);
         return redirect()->route('admin.books')->with('success', 'Book created successfully');
     }
 

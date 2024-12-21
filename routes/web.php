@@ -21,10 +21,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('layout');
 });
+Route::get('admin/login', [AuthController::class, 'indexAdmin'])->name('admin.login');
+Route::post('admin/login', [AuthController::class, 'loginAdmin'])->name('admin.login.validate');
 
-Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
-    Route::get('login', [AuthController::class, 'indexAdmin'])->name('login')->withoutMiddleware('admin');
-    Route::post('login', [AuthController::class, 'loginAdmin'])->name('login.validate')->withoutMiddleware('admin');
+Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('logout', [AuthController::class, 'logoutAdmin'])->name('logout');
 
     Route::get('/home', [AdminController::class, 'index'])->name('home');
